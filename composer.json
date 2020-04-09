@@ -1,0 +1,31 @@
+{
+    "name": "codesigner/wechat-mp",
+    "description": "A wechat mini program extension for laravel 7",
+    "require": {
+        "php": ">=7.1.0",
+        "illuminate/support": "^7.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brice",
+            "email": "brice@codesigner.io"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Codesigner\\WechatMp\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codesigner\\WechatMp\\WechatMpServiceProvider"
+            ],
+            "aliases": {
+                "WechatMP": "Codesigner\\WechatMp\\WechatMpFacade"
+            }
+        }
+    }
+}
