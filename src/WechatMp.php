@@ -2,6 +2,10 @@
 
 namespace Codesigner\WechatMp;
 
+include_once "wechat/wxBizDataCrypt.php";
+
+use \WXBizDataCrypt;
+
 class WechatMp {
 
     /**
@@ -33,7 +37,7 @@ class WechatMp {
         if(!isset($userInfo['session_key'])){
             return [
                 'code' => 10000,
-                'code' => '获取 session_key 失败',
+                'message' => '获取 session_key 失败',
             ];
         }
         return $userInfo;
@@ -56,7 +60,7 @@ class WechatMp {
                 'message' => 'encryptedData 解密失败'
             ];
         }
-        return $decodeData;
+        return json_decode($decodeData);
     }
 
 
