@@ -34,11 +34,8 @@ class WechatMp {
     public function getLoginInfo($code){
         $code2session_url = sprintf($this->code2session_url,$this->appId,$this->secret,$code);
         $userInfo = $this->httpRequest($code2session_url);
-        if(!isset($userInfo['session_key'])){
-            return [
-                'code' => 10000,
-                'message' => '获取 session_key 失败',
-            ];
+        if(!isset($userInfo['session_key'])) {
+            throw new Exception('获取 session_key 失败');
         }
         return $userInfo;
     }
@@ -54,11 +51,8 @@ class WechatMp {
         $pc = new WXBizDataCrypt($this->appId, $sessionKey);
         $decodeData = "";
         $errCode = $pc->decryptData($encryptedData, $iv, $decodeData);
-        if ($errCode !=0 ) {
-            return [
-                'code' => 10001,
-                'message' => 'encryptedData 解密失败'
-            ];
+        if ($errCode != 0 ) {
+            throw new Exception('encryptedData 解密失败');
         }
         return json_decode($decodeData);
     }
