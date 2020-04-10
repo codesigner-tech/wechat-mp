@@ -5,6 +5,8 @@ namespace Codesigner\WechatMp;
 include_once "wechat/wxBizDataCrypt.php";
 
 use \WXBizDataCrypt;
+use \ErrorCode;
+use Exception;
 
 class WechatMp {
 
@@ -35,7 +37,7 @@ class WechatMp {
         $code2session_url = sprintf($this->code2session_url,$this->appId,$this->secret,$code);
         $userInfo = $this->httpRequest($code2session_url);
         if(!isset($userInfo['session_key'])) {
-            throw new Exception('获取 session_key 失败');
+            throw new Exception('获取 session_key 失败', ErrorCode::$FetchSessionKeyError);
         }
         return $userInfo;
     }
@@ -52,7 +54,7 @@ class WechatMp {
         $decodeData = "";
         $errCode = $pc->decryptData($encryptedData, $iv, $decodeData);
         if ($errCode != 0 ) {
-            throw new Exception('encryptedData 解密失败');
+            throw new Exception('encryptedData 解密失败', $errCode);
         }
         return json_decode($decodeData);
     }
